@@ -36,12 +36,16 @@
         <div class="theme-btn forest" data-theme="forest" title="森林主题">
             <div class="tooltip">森林主题</div>
         </div>
+        <div class="theme-btn play-mode" data-theme="play-mode" title="演奏模式">
+            <div class="tooltip">演奏模式</div>
+        </div>
     </div>
 
     <!-- 控制按钮 -->
     <div class="help-trigger" title="帮助"></div>
     <div class="settings-trigger" title="设置"></div>
     <div class="music-trigger" title="音乐设置"></div>
+    <div class="play-mode-trigger" title="演奏模式">演奏模式</div>
     <div class="update-trigger" title="更新日志">❗</div>
 
     <!-- 帮助面板 -->
@@ -157,10 +161,33 @@
         
         <div class="collapsible-section">
             <div class="collapsible-header active">
-                <h3>小蛇 0.2 <span class="update-date">2024-01-20</span></h3>
+                <h3>小蛇 0.3 <span class="update-date">2024-01-25</span></h3>
                 <span class="toggle-icon">▼</span>
             </div>
             <div class="collapsible-content show">
+                <ul>
+                    <li>🎵 更新了蛇生成和吃食物的音效
+                        <ul>
+                            <li>添加了新的音效文件以增强游戏体验</li>
+                            <li>优化了音效播放逻辑</li>
+                        </ul>
+                    </li>
+                    <li>🎵 待更新小钢琴
+                        <ul>
+                            <li>即将添加更多音符和功能</li>
+                            <li>改进用户界面以提升交互体验</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="collapsible-section">
+            <div class="collapsible-header">
+                <h3>小蛇 0.2 <span class="update-date">2024-01-20</span></h3>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content">
                 <ul>
                     <li>✨ 新增背景音乐系统
                         <ul>
@@ -234,7 +261,101 @@
         </div>
     </div>
 
+    <!-- 演奏模式面板 -->
+    <div class="piano-panel" style="display: none;">
+        <div class="piano">
+            <div class="key white" data-note="C2">
+                <div class="key-label">C2</div>
+                <div class="key-key">1</div>
+            </div>
+            <div class="key white" data-note="D2">
+                <div class="key-label">D2</div>
+                <div class="key-key">2</div>
+            </div>
+            <div class="key white" data-note="E2">
+                <div class="key-label">E2</div>
+                <div class="key-key">3</div>
+            </div>
+            <div class="key white" data-note="F2">
+                <div class="key-label">F2</div>
+                <div class="key-key">4</div>
+            </div>
+            <div class="key white" data-note="G2">
+                <div class="key-label">G2</div>
+                <div class="key-key">5</div>
+            </div>
+            <div class="key white" data-note="A2">
+                <div class="key-label">A2</div>
+                <div class="key-key">6</div>
+            </div>
+            <div class="key white" data-note="B2">
+                <div class="key-label">B2</div>
+                <div class="key-key">7</div>
+            </div>
+            <div class="key white" data-note="C3">
+                <div class="key-label">C3</div>
+                <div class="key-key">8</div>
+            </div>
+            <div class="key white" data-note="D3">
+                <div class="key-label">D3</div>
+                <div class="key-key">9</div>
+            </div>
+            <div class="key white" data-note="E3">
+                <div class="key-label">E3</div>
+                <div class="key-key">0</div>
+            </div>
+            <div class="key white" data-note="F3">
+                <div class="key-label">F3</div>
+                <div class="key-key">q</div>
+            </div>
+            <div class="key white" data-note="G3">
+                <div class="key-label">G3</div>
+                <div class="key-key">w</div>
+            </div>
+            <div class="key white" data-note="A3">
+                <div class="key-label">A3</div>
+                <div class="key-key">e</div>
+            </div>
+            <div class="key white" data-note="B3">
+                <div class="key-label">B3</div>
+                <div class="key-key">r</div>
+            </div>
+            <div class="key white" data-note="C4">
+                <div class="key-label">C4</div>
+                <div class="key-key">t</div>
+            </div>
+            <div class="key white" data-note="D4">
+                <div class="key-label">D4</div>
+                <div class="key-key">y</div>
+            </div>
+            <div class="key white" data-note="E4">
+                <div class="key-label">E4</div>
+                <div class="key-key">u</div>
+            </div>
+            <div class="key white" data-note="F4">
+                <div class="key-label">F4</div>
+                <div class="key-key">i</div>
+            </div>
+            <div class="key white" data-note="G4">
+                <div class="key-label">G4</div>
+                <div class="key-key">o</div>
+            </div>
+            <div class="key white" data-note="A4">
+                <div class="key-label">A4</div>
+                <div class="key-key">p</div>
+            </div>
+            <div class="key white" data-note="B4">
+                <div class="key-label">B4</div>
+                <div class="key-key">a</div>
+            </div>
+        </div>
+        <div id="note-display" style="text-align: center; margin-top: 10px; font-size: 24px; color: #333;">
+            当前音符: 
+        </div>
+    </div>
+
     <!-- 脚本 -->
     <script src="background.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

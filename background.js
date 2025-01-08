@@ -1,7 +1,14 @@
 // 全局变量
+/*
 const AUDIO_URLS = {
     click: 'data:audio/wav;base64,UklGRigBAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQBAACBgIF/gnmDdYRyhW+GbIdqiGiJZopljGONYY5fj12QW5FZkleTVZRTlVGWT5dNmEuZSZpHm0WcQ51BnkCfPqA8oTqiOKM2pDSlMqYwpy6oLKkqqiirJqwkrSKuIK8esB6wHLAasBiwFrAUsBKwELAOsAywCrAIvwa9BLsCuQC3ALUAswCxAK8ArQCrAKkApwClAKMAnwCdAJsAmQCXAJUAkwCRAI8AjQCLAIkAhwCFAIMASwBJAEcARQBDAEEAPwA9ADsAOQA3ADUAMwAxAC8ALQArACkAJwAlACMAIQAfAB0AGwAZABcAFQATABEADwANAAsACQAHAAUAAwABAA==',
     eat: 'data:audio/wav;base64,UklGRigBAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQBAACBgYKBg4GEgYWBhoGHgYiBiYGKgYuBjIGNgY6Bj4GQgZGBkoGTgZSBlYGWgZeBmIGZgZqBm4GcgZ2BnoGfgaCBoYGigaOBpIGlgaaBp4GogamBqoGrga6Br4GwgbGBsoGzgbSBtYG2gbeBuIG5gbqBu4G8gb2BvoG/gcCBwYHCgcOBxIHFgcaBx4HIgcmByoHLgcyBzYHOgc+B0IHRgdKB04HUgdWB1oHXgdiB2YHagduB3IHdgd6B34HggeGB4oHjgeSB5YHmgeeBgoGDgYSBhYGGgYeBiIGJgYqBi4GMgY2BjoGPgZCBkYGSgZOBlIGVgZaBlYGUgZOBkoGRgZCBj4GOgY2BjIGLgYqBiYGIgYeBhoGFgYSBg4GCgYGBgIB/gH6AfYB8gHuAeoB5gHiAd4B2gHWAdIBzgHKAcYBwgG+AboCtgKyAq4CqgKmAqICngKaApYCkgKOAooCfgJ6AnYCcgJuAmoCZgJiAl4CWgJWAlICTgJKAkYCQgI+AjoCNgIyAi4CKgImAiICHgIaAhYCEgIOAgoGBgYCBf4F+gX2BfIF7gXqBeYF4gXeB'
+};*/
+
+const AUDIO_EFFECTS = {
+    click:  'assets/audio/effects/click.mp3',
+    eat1:   'assets/audio/effects/eat1.mp3',
+    eat2:   'assets/audio/effects/eat2.mp3'
 };
 
 const bgCanvas = document.getElementById('backgroundCanvas');
@@ -14,9 +21,20 @@ let mouseX = 0;
 let mouseY = 0;
 let lastFoodSpawnTime = Date.now();
 let lastWildSerpentSpawnTime = Date.now();
-let audioContext;
-let clickSound;
-let eatSound;
+//let audioContext;
+//let clickSound;
+//let eatSound;
+
+//random
+function getRandomArrayIndex(array) {
+    // 首先确保数组不为空，否则可能导致错误
+    if (array.length === 0) {
+      throw new Error("数组长度不能为 0");
+    }
+    // 生成一个介于 0（含）和数组长度（不含）之间的随机整数
+    let randomIndex = Math.floor(Math.random() * array.length);
+    return randomIndex;
+  }
 
 // 主题切换相关代码
 const themeButtons = document.querySelectorAll('.theme-btn');
@@ -142,6 +160,19 @@ function initBackgroundParticles() {
 }
 
 // 音频相关
+// 创建一个新的Audio对象
+function playMP3(path) {
+    if(path == null) return;    //路径为空
+    if(!soundEnabled) return;    //音效关闭 
+const audio = new Audio(path);
+audio.volume = soundVolume;  //控制音量
+
+// 播放音频
+audio.play().catch(error => {
+    console.error('播放失败:', error);
+});
+}
+/*
 async function loadAudio() {
     try {
         // 创建音频上下文
@@ -209,7 +240,7 @@ window.addEventListener('click', async () => {
         await loadAudio();
     }
 }, { once: true });
-
+*/
 // 特效类
 class Effect {
     constructor(x, y, type) {
@@ -625,7 +656,20 @@ class BackgroundSerpent {
             }
 
             // 播放吃食物音效
-            playSound(eatSound);
+            let randomIndex = Math.floor(Math.random() * 2);
+            if(randomIndex === 0)
+                {
+                playMP3(AUDIO_EFFECTS.eat1);
+                console.log('foot_eat_1:');
+                }
+            else
+            {
+                playMP3(AUDIO_EFFECTS.eat2);
+                console.log('foot_eat_2:');
+                }
+                
+            
+
         }
 
         // 创建吃食物特效
@@ -761,7 +805,7 @@ class BackgroundSerpent {
         ctx.restore();
     }
 }
-
+ 
 // 音乐功能初始化
 function initMusicFeatures() {
     console.log('初始化音乐功能');
@@ -958,9 +1002,9 @@ function init() {
         }
 
         // 如果音频上下文未初始化，则初始化
-        if (!audioContext) {
+        /*if (!audioContext) {
             await loadAudio();
-        }
+        }*/
 
         // 检查点击位置是否太靠近其他蛇
         const rect = bgCanvas.getBoundingClientRect();
@@ -977,7 +1021,7 @@ function init() {
         // 只在不太靠近其他蛇时生成新蛇
         if (!tooClose) {
             mouseSerpents.push(new BackgroundSerpent(clickX, clickY));
-            playSound(clickSound);
+            playMP3(AUDIO_EFFECTS.click);
         }
     });
 

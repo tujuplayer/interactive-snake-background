@@ -778,5 +778,137 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* 确保更新面板在其他面板之上 */
 .help-panel, .settings-panel, .music-panel {
-    z-index: 900;
+    z-index: 1000;
+} 
+
+.piano-panel {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+    border-radius: 10px;
+}
+
+.piano {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.key {
+    width: 40px;
+    height: 150px;
+    border: 1px solid #000;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s;
+    position: relative;
+}
+
+.key:hover {
+    background: #f0f0f0;
+}
+
+.key.black {
+    width: 30px;
+    height: 100px;
+    background: black;
+    position: absolute;
+    z-index: 1;
+}
+
+/* 调整黑键的位置 */
+.key.black:nth-child(2) { left: 30px; } /* C# */
+.key.black:nth-child(4) { left: 90px; } /* D# */
+.key.black:nth-child(7) { left: 150px; } /* F# */
+.key.black:nth-child(9) { left: 210px; } /* G# */
+.key.black:nth-child(11) { left: 270px; } /* A# */
+
+/* 扩展音域 */
+.key.white:nth-child(1) { /* C2 */ }
+.key.white:nth-child(2) { /* D2 */ }
+.key.white:nth-child(3) { /* E2 */ }
+.key.white:nth-child(4) { /* F2 */ }
+.key.white:nth-child(5) { /* G2 */ }
+.key.white:nth-child(6) { /* A2 */ }
+.key.white:nth-child(7) { /* B2 */ }
+.key.white:nth-child(8) { /* C3 */ }
+.key.white:nth-child(9) { /* D3 */ }
+.key.white:nth-child(10) { /* E3 */ }
+.key.white:nth-child(11) { /* F3 */ }
+.key.white:nth-child(12) { /* G3 */ }
+.key.white:nth-child(13) { /* A3 */ }
+.key.white:nth-child(14) { /* B3 */ }
+.key.white:nth-child(15) { /* C4 */ }
+.key.white:nth-child(16) { /* D4 */ }
+.key.white:nth-child(17) { /* E4 */ }
+.key.white:nth-child(18) { /* F4 */ }
+.key.white:nth-child(19) { /* G4 */ }
+.key.white:nth-child(20) { /* A4 */ }
+.key.white:nth-child(21) { /* B4 */ }
+.key.white:nth-child(22) { /* C5 */ }
+
+.play-mode-trigger {
+    position: relative;
+    padding: 8px 15px;
+    background: rgba(0, 0, 51, 0.6);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    color: white;
+    margin: 5px 0;
+    width: 120px;
+    height: 40px;
+}
+
+.play-mode-trigger:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.piano-panel {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+} 
+
+.key {
+    position: relative; /* 使标签相对定位 */
+}
+
+.key-label, .key-key {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #333;
+}
+
+.key-label {
+    bottom: 5px; /* 音名显示在琴键下方 */
+}
+
+.key-key {
+    top: 5px; /* 键盘按键显示在琴键上方 */
+    font-weight: bold;
+    color: #007BFF; /* 按键颜色 */
 } 
