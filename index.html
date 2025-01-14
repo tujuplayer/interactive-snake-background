@@ -115,10 +115,37 @@
             
             <div class="collapsible-section">
                 <div class="collapsible-header active">
-                    <h3>小蛇 0.3 <span class="update-date">2024-01-25</span></h3>
+                    <h3>小蛇 0.4 <span class="update-date">2024-02-01</span></h3>
                     <span class="toggle-icon">▼</span>
                 </div>
                 <div class="collapsible-content show">
+                    <ul>
+                        <li>🎹 新增钢琴演奏模式
+                            <ul>
+                                <li>添加完整的钢琴键盘界面</li>
+                                <li>支持鼠标点击和键盘按键演奏</li>
+                                <li>可调节音量和音色设置</li>
+                                <li>实时显示当前演奏音符</li>
+                            </ul>
+                        </li>
+                        <li>🎵 待更新音频系统
+                            <ul>
+                                <li>新增多种音效选择</li>
+                                <li>优化音频播放性能</li>
+                                <li>添加音频可视化效果</li>
+                                <li>支持MIDI设备输入</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="collapsible-section">
+                <div class="collapsible-header">
+                    <h3>小蛇 0.3 <span class="update-date">2024-01-25</span></h3>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="collapsible-content">
                     <ul>
                         <li>🎵 更新了蛇生成和吃食物的音效
                             <ul>
@@ -365,6 +392,12 @@
             <div class="panel-close">×</div>
             <h3>钢琴设置</h3>
             <!-- 设置内容 -->
+            
+            <!-- 添加当前音色显示 -->
+            <div class="current-tone-display">
+                <span>当前音色：</span>
+                <span id="current-tone">正弦波</span>
+            </div>
         </div>
     </div>
 
