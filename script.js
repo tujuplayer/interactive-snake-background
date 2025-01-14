@@ -226,9 +226,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const pianoSettingsPanel = document.querySelector('.piano-settings-panel');
 
     if (pianoSettingsButton && pianoSettingsPanel) {
-        pianoSettingsButton.addEventListener('click', function(event) {
-            event.stopPropagation();
+        pianoSettingsButton.addEventListener('click', function(e) {
+            e.stopPropagation();
             pianoSettingsPanel.classList.toggle('show');
+        });
+
+        // 点击外部关闭面板
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.piano-settings-panel') && 
+                !e.target.closest('.piano-settings-button')) {
+                document.querySelector('.piano-settings-panel').classList.remove('show');
+            }
         });
 
         // 钢琴音量控制
@@ -290,36 +298,84 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 设置面板控制
-document.addEventListener('DOMContentLoaded', function() {
-    const settingsTrigger = document.querySelector('.settings-trigger');
-    const settingsPanel = document.querySelector('.settings-panel');
-
-    if (settingsTrigger && settingsPanel) {
-        // 显示设置面板
-        settingsTrigger.addEventListener('click', function(event) {
-            event.stopPropagation();
-            settingsPanel.classList.toggle('show');
+// 更新面板管理逻辑
+const panelManager = {
+    currentPanel: null,
+    init() {
+        this.setupEventListeners();
+    },
+    setupEventListeners() {
+        // 点击触发器
+        document.querySelectorAll('.panel-trigger').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                const targetPanel = document.querySelector(trigger.dataset.target);
+                this.togglePanel(trigger, targetPanel);
+                e.stopPropagation();
+            });
         });
 
-        // 点击外部关闭设置面板
-        document.addEventListener('click', function(event) {
-            if (!settingsPanel.contains(event.target) && 
-                !settingsTrigger.contains(event.target)) {
-                settingsPanel.classList.remove('show');
+        // 点击关闭按钮
+        document.querySelectorAll('.panel-close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', () => {
+                const panel = closeBtn.closest('.panel');
+                this.closePanel(panel);
+            });
+        });
+
+        // 点击外部关闭面板
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.panel') && !e.target.closest('.panel-trigger')) {
+                this.closeCurrentPanel();
             }
         });
+    },
+    togglePanel(trigger, panel) {
+        if (this.currentPanel === panel) {
+            this.closePanel(panel);
+        } else {
+            this.openPanel(trigger, panel);
+        }
+    },
+    openPanel(trigger, panel) {
+        // 关闭当前面板
+        if (this.currentPanel) {
+            this.closePanel(this.currentPanel);
+        }
+        
+        // 计算位置
+        const rect = trigger.getBoundingClientRect();
+        const panelClass = panel.classList[1];
+        const panelRect = panel.getBoundingClientRect();
+        const offset = 10;
+        
+        switch(panelClass) {
+            case 'piano-settings-panel':
+                // 钢琴设置面板在按钮上方
+                panel.style.top = `${rect.top - panelRect.height - offset}px`;
+                panel.style.left = `${rect.left}px`;
+                panel.style.transform = 'translateY(-10px)';
+                break;
+            // ... 其他面板位置计算 ...
+        }
 
-        // 初始化设置项
-        const rangeInputs = settingsPanel.querySelectorAll('input[type="range"]');
-        rangeInputs.forEach(input => {
-            const display = input.parentElement.querySelector('.value-display');
-            if (display) {
-                display.textContent = input.value;
-                input.addEventListener('input', () => {
-                    display.textContent = input.value;
-                });
-            }
-        });
+        // 打开新面板
+        panel.classList.add('show');
+        this.currentPanel = panel;
+    },
+    closePanel(panel) {
+        panel.classList.remove('show');
+        if (this.currentPanel === panel) {
+            this.currentPanel = null;
+        }
+    },
+    closeCurrentPanel() {
+        if (this.currentPanel) {
+            this.closePanel(this.currentPanel);
+        }
     }
+};
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    panelManager.init();
 }); 
