@@ -138,8 +138,9 @@ body {
 /* 帮助面板样式 */
 .help-panel {
     position: fixed;
-    top: 120px;
-    left: 20px;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
     width: 300px;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
@@ -299,12 +300,12 @@ body {
 /* 面板关闭按钮 */
 .panel-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     cursor: pointer;
-    color: #fff;
     font-size: 20px;
-    transition: opacity 0.2s ease;
+    line-height: 1;
+    padding: 5px;
 }
 
 .panel-close:hover {
@@ -332,7 +333,7 @@ body {
 /* 音乐控制面板 */
 .music-panel {
     position: fixed;
-    bottom: 70px;
+    bottom: 90px;
     right: 20px;
     width: 300px;
     background: rgba(0, 0, 0, 0.8);
@@ -576,8 +577,9 @@ body {
 /* 更新日志面板 */
 .update-panel {
     position: fixed;
-    bottom: 70px;
-    left: 20px;
+    bottom: calc(100% + 10px);
+    right: 0;
+    transform: translateY(20px);
     width: 300px;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
@@ -875,9 +877,9 @@ body {
 /* 设置面板样式 */
 .settings-panel {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: calc(100% + 10px);
+    right: 0;
+    transform: translateY(-20px);
     width: 400px;
     max-width: 90%;
     background: rgba(255, 255, 255, 0.9);
@@ -969,7 +971,7 @@ body {
     margin-top: 20px;
     cursor: pointer;
     font-size: 24px;
-    color: white;
+    color: rgb(255, 255, 255);
     display: inline-block;
     padding: 10px;
     background: rgba(255, 255, 255, 0.1);
@@ -995,7 +997,7 @@ body {
 .update-panel,
 .music-panel,
 .piano-panel {
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(23, 4, 54, 0.9);
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -1011,121 +1013,71 @@ body {
 /* 面板基础样式 */
 .panel {
     position: fixed;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    width: 400px;
+    max-width: 90vw;
+    background: rgba(11, 22, 34, 0.95); /* 恢复原来的深蓝色背景 */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     padding: 20px;
-    color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
-    max-height: 80vh;
-    min-width: 300px;
-    max-width: 400px;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    will-change: transform, opacity;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    color: #fff; /* 白色文字 */
 }
 
-/* 面板显示状态 */
-.panel.show {
+/* 帮助面板 - 从按钮下方弹出 */
+.help-panel {
+    top: 50px;
+    left: 120px; /* 靠右显示 */
+    bottom: auto; /* 清除bottom */
+    right: auto;  /* 清除right */
+    transform: translateY(-10px);
+}
+
+/* 设置面板 - 从按钮下方弹出 */
+.settings-panel {
+    top: 50px;
+    left: 120px; /* 靠右显示 */
+    bottom: auto; /* 清除bottom */
+    right: auto;  /* 清除right */
+    transform: translateY(-10px);
+}
+
+/* 更新面板 - 从按钮上方弹出 */
+.update-panel {
+    bottom: 20px;
+    left: 150px; /* 靠右显示 */
+    top : auto; /* 清除bottom */
+    right: auto;  /* 清除right */
+}
+
+/* 激活状态 */
+.panel.active {
     opacity: 1;
     visibility: visible;
-}
-
-/* 面板位置调整 */
-.panel.help-panel {
-    transform-origin: top right;
-}
-
-.panel.settings-panel {
-    transform-origin: top right;
-}
-
-.panel.update-panel {
-    transform-origin: center right;
-    max-width: 500px;
-    min-width: 400px;
-}
-
-.panel.music-panel {
-    transform-origin: bottom right;
+    transform: translateY(0);
 }
 
 /* 面板关闭按钮 */
 .panel-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     cursor: pointer;
-    color: #fff;
     font-size: 20px;
-    transition: opacity 0.2s ease;
+    line-height: 1;
+    padding: 5px;
+    color: #fff;
 }
 
-.panel-close:hover {
-    opacity: 0.8;
-}
-
-/* 确保面板不会超出窗口 */
-.panel {
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-}
-
-.panel.update-panel {
-    top: 50% !important;
-    transform: translateY(-50%) translateX(10px) !important;
-} 
-
-/* 确保面板初始状态正确 */
-.piano-settings-panel {
-    display: block; /* 确保不是display: none */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-}
-
-.piano-settings-panel.show {
-    opacity: 1;
-    visibility: visible;
-} 
-
-/* 钢琴设置面板基础样式 */
-.piano-settings-panel {
-    position: fixed;
-    z-index: 1001;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 20px;
-    color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
-    max-height: 80vh;
-    min-width: 300px;
-    max-width: 400px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    will-change: transform, opacity;
-}
-
-/* 钢琴设置面板显示状态 */
-.piano-settings-panel.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* 钢琴设置按钮样式 */
-.piano-settings-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
-    font-size: 24px;
-    padding: 10px;
-    z-index: 1000;
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .panel {
+        width: 90vw;
+        max-height: 80vh;
+        overflow-y: auto;
+        right: 5vw !important; /* 移动端统一靠右 */
+        left: auto !important;
+    }
 } 
