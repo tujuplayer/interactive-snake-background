@@ -37,7 +37,7 @@
             <div class="tooltip">森林主题</div>
         </div>
         <div class="theme-btn play-mode" data-theme="play-mode" title="演奏模式">
-            <div class="tooltip">演奏模式</div>
+            <div class="tooltip">简洁模式</div>
         </div>
     </div>
 
@@ -352,6 +352,35 @@
         <div id="note-display" style="text-align: center; margin-top: 10px; font-size: 24px; color: #333;">
             当前音符: 
         </div>
+
+        <!-- 钢琴设置按钮 -->
+        <div class="piano-settings-button">
+            ⚙️
+        </div>
+
+        <!-- 钢琴设置面板 -->
+        <div class="piano-settings-panel">
+            <h4>钢琴设置</h4>
+            <div class="piano-setting-item">
+                <label for="pianoWaveform">音色：</label>
+                <select id="pianoWaveform">
+                    <option value="sine">正弦波</option>
+                    <option value="square">方波</option>
+                    <option value="sawtooth">锯齿波</option>
+                    <option value="triangle">三角波</option>
+                </select>
+            </div>
+            <div class="piano-setting-item">
+                <label for="pianoVolume">音量：</label>
+                <input type="range" id="pianoVolume" min="0" max="1" step="0.1" value="0.5">
+                <span class="piano-value-display">0.5</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局设置 -->
+    <div class="global-settings">
+        <!-- ... 全局设置内容保持不变 ... -->
     </div>
 
     <!-- 脚本 -->
